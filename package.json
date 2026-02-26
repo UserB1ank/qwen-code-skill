@@ -24,17 +24,17 @@
     "coding-agent",
     "automation"
   ],
-  "author": "pc01",
+  "author": "UserB1ank",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pc01/qwen-code-skill.git"
+    "url": "https://github.com/UserB1ank/qwen-code-skill.git"
   },
   "bugs": {
-    "url": "https://github.com/pc01/qwen-code-skill/issues"
+    "url": "https://github.com/UserB1ank/qwen-code-skill/issues"
   },
-  "homepage": "https://github.com/pc01/qwen-code-skill#readme"
+  "homepage": "https://github.com/UserB1ank/qwen-code-skill#readme"
 }
