@@ -186,8 +186,5 @@ MIT License
 
 ## 👥 作者
 
-- pc01
+- UserB1ank
 
----
-
-**🦌 由 OpenClaw 社区驱动**
