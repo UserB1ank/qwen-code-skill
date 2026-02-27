@@ -4,9 +4,15 @@
  * Qwen Code CLI - OpenClaw Skill 工具
  * 基于官方文档：https://qwenlm.github.io/qwen-code-docs/zh/
  * 
+ * @version 1.1.0-dev
+ * @author UserB1ank
+ * @repository https://github.com/UserB1ank/qwen-code-skill
+ * 
  * 安装：npm install -g @qwen-code/qwen-code@latest
  * 认证：Qwen OAuth (免费) - 运行 qwen 后按提示登录
  */
+
+const VERSION = '1.1.0-dev';
 
 const { execSync, spawn } = require('child_process');
 const fs = require('fs');
@@ -310,9 +316,17 @@ function skillCommand(action, args = []) {
   }
 }
 
+function showVersion() {
+  console.log(`qwen-code v${VERSION}`);
+  console.log('');
+  console.log('🦌 Qwen Code CLI - OpenClaw Skill');
+  console.log('Repository: https://github.com/UserB1ank/qwen-code-skill');
+  console.log('License: MIT');
+}
+
 function showHelp() {
   console.log(`
-🦌 Qwen Code - 官方 Qwen Code CLI 集成
+🦌 Qwen Code v${VERSION} - 官方 Qwen Code CLI 集成
 文档：https://qwenlm.github.io/qwen-code-docs/zh/
 
 安装:
@@ -323,6 +337,7 @@ function showHelp() {
 
 命令:
   status              检查状态和配置
+  version             显示版本信息
   run <task>          运行 Qwen Code 任务
   review <file>       代码审查
   headless <task>     Headless 模式（脚本化/自动化）
@@ -397,6 +412,11 @@ const args = process.argv.slice(2);
 const command = args[0];
 
 switch (command) {
+  case 'version':
+  case '-v':
+  case '--version':
+    showVersion();
+    break;
   case 'status':
     showStatus();
     break;
