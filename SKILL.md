@@ -1,118 +1,270 @@
 ---
 name: qwen-code
-description: 阿里云 Qwen Code CLI 工具封装。提供状态检查、任务执行、代码审查、Headless 自动化等功能
+description: Run Alibaba Cloud Qwen Code CLI via background process for task execution, code review, and automation.
+metadata: {"clawdbot":{"emoji":"🦌","requires":{"anyBins":["qwen"]}}}
 author: UserB1ank
 ---
 
-# Qwen Code Skill
+# Qwen Code Skill (background-first)
 
-三句话概述：
+Use **bash background mode** for non-interactive coding work with Qwen Code CLI.
 
-- **是什么**: 阿里云 Qwen Code CLI 的 OpenClaw 工具封装
-- **解决什么**: 将 Qwen Code 集成到 OpenClaw 工作流，支持任务执行、代码审查、自动化脚本
-- **30 秒上手**: `scripts/qwen-code.js status` 检查状态，`scripts/qwen-code.js run "任务描述"` 执行任务
+## The Pattern: workdir + background
 
-**关键词**: Qwen Code, CLI 封装，代码审查，自动化，CI/CD
+```bash
+# Start Qwen Code in target directory
+bash workdir:~/project background:true yieldMs:30000 command:"qwen -p 'Build a Flask API'"
+# Returns sessionId for tracking
+
+# Monitor progress
+process action:log sessionId:XXX
+
+# Check if done
+process action:poll sessionId:XXX
+
+# Send input (if Qwen asks a question)
+process action:write sessionId:XXX data:"y"
+
+# Kill if needed
+process action:kill sessionId:XXX
+```
+
+**Why workdir matters:** Agent wakes up in a focused directory, doesn't wander off reading unrelated files.
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+```bash
+# Install Qwen Code CLI
+npm install -g @qwen-code/qwen-code@latest
+
+# Verify installation
+qwen --version
+
+# Authenticate (Option 1: OAuth)
+qwen auth login
+
+# Or Option 2: API Key
+export DASHSCOPE_API_KEY="sk-xxx"
+```
+
+### Basic Usage
+
+```bash
+# Check status
+scripts/qwen-code.js status
+
+# Run a task
+scripts/qwen-code.js run "Create a Flask API"
+
+# Code review
+scripts/qwen-code.js review src/app.ts
+
+# Headless mode (JSON output)
+scripts/qwen-code.js headless "Analyze code" -o json
+```
+
+---
+
+## Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `status` | Check Qwen Code status and authentication | `scripts/qwen-code.js status` |
+| `run <task>` | Execute programming task | `scripts/qwen-code.js run "Create REST API"` |
+| `review <file>` | Code review and analysis | `scripts/qwen-code.js review src/main.py` |
+| `headless <task>` | Headless mode (JSON output) | `scripts/qwen-code.js headless "Analyze" -o json` |
+| `help` | Show help information | `scripts/qwen-code.js help` |
+
+---
+
+## OpenClaw Integration
+
+### Background Execution
+
+```bash
+# Basic task
+bash workdir:~/project background:true yieldMs:30000 \
+  command:"qwen -p 'Create Python Flask API'"
+
+# Specify model
+bash workdir:~/project background:true yieldMs:30000 \
+  command:"qwen -p 'Analyze code structure' -m qwen3-coder-plus"
+
+# YOLO mode (auto-approve)
+bash workdir:~/project background:true yieldMs:30000 \
+  command:"qwen -p 'Refactor this function' -y"
+```
+
+### Process Management
+
+```bash
+# View logs
+process action:log sessionId:XXX
+
+# Check completion
+process action:poll sessionId:XXX
+
+# Send input (if Qwen asks)
+process action:write sessionId:XXX data:"y"
+```
+
+### Headless Mode (Automation/CI/CD)
+
+```bash
+# JSON output
+qwen -p "Analyze code structure" --output-format json
+
+# Pipeline operations
+git diff | qwen -p "Generate commit message"
+
+# Batch processing
+find src -name "*.ts" | xargs -I {} qwen -p "Review {}"
+```
+
+---
+
+## Models
+
+Qwen Code supports Alibaba Cloud models:
+
+- `qwen3.5-plus` - General purpose (default)
+- `qwen3-coder-plus` - Coding specialized
+- `qwen3-coder-next` - Latest coding model
+- `qwen3-max-2026-01-23` - Most capable
+
+**Specify model:**
+```bash
+bash workdir:~/project background:true yieldMs:30000 \
+  command:"qwen -p 'Refactor this' -m qwen3-coder-plus"
+```
+
+---
+
+## Authentication
+
+### OAuth (Recommended)
+
+```bash
+qwen auth login
+```
+
+Opens browser for OAuth flow. Token auto-refreshes.
+
+### API Key
+
+```bash
+export DASHSCOPE_API_KEY="sk-xxx"
+```
+
+Get key from: https://dashscope.console.aliyun.com/
+
+---
+
+## ⚠️ Rules
+
+1. **Respect tool choice** — if user asks for Qwen, use Qwen. NEVER offer to build it yourself!
+2. **Be patient** — don't kill sessions because they're "slow"
+3. **Monitor with process:log** — check progress without interfering
+4. **YOLO mode for building** — `--yolo` auto-approves changes (use in workspace only)
+5. **Review mode for safety** — production code should use review mode
+6. **Parallel is OK** — run many Qwen processes at once for batch work
+7. **NEVER start Qwen in ~/clawd/** — it'll read your soul docs! Use target project dir or /tmp
+8. **Workspace safety** — YOLO mode is safe in `agents.defaults.workspace`, not elsewhere
 
 ---
 
 ## For
 
-- 需要使用 Qwen Code 完成编程任务的开发者
-- 需要代码审查和分析的团队
-- 需要自动化脚本和 CI/CD 集成的环境
-- OpenClaw Sub-Agent 和 Skills 管理
+- Developers using Qwen Code for programming tasks
+- Teams needing code review and analysis
+- Automation scripts and CI/CD integration
+- OpenClaw Sub-Agent and Skills management
+- Batch code analysis and refactoring
 
 ## Not For
 
-- 未安装 Qwen Code CLI 的环境
-- 需要图形界面交互的场景
-- 非阿里云大模型用户
+- Environments without Qwen Code CLI installed
+- GUI-based interaction requirements
+- Non-Alibaba Cloud LLM users
+- Offline environments (requires network connection)
 
 ---
 
-## 快速开始
+## Security & Boundaries
+
+| Component | Behavior | Executes Shell Commands? |
+|-----------|----------|-------------------------|
+| `scripts/qwen-code.js` | Wraps Qwen Code CLI commands | Yes (via `qwen` command) |
+| `references/qwen-cli-commands.md` | Command reference documentation | No (plain text) |
+| `assets/examples/` | Example code files | No (static files) |
+
+### ⚠️ Security Notes
+
+- This Skill does not execute code directly, only calls Qwen Code CLI
+- All code generation and modifications require user confirmation
+- Use review mode in production environments
+- Disable YOLO mode for sensitive projects
+
+---
+
+## Examples
+
+See [`assets/examples/`](assets/examples/) for complete examples:
+
+| Example | Description |
+|---------|-------------|
+| `basic-task.example.sh` | Basic task execution |
+| `code-review.example.sh` | Code review workflow |
+| `ci-cd.example.yml` | GitHub Actions integration |
+| `headless-mode.example.js` | Node.js automation example |
+
+---
+
+## References
+
+- [📖 Qwen Code Official Docs](https://qwenlm.github.io/qwen-code-docs/zh/)
+- [📝 Command Reference](references/qwen-cli-commands.md)
+- [📦 Example Code](assets/examples/)
+- [🦌 OpenClaw Documentation](https://openclaw.ai)
+
+---
+
+## Troubleshooting
+
+### "qwen: command not found"
 
 ```bash
-# 1. 安装 Qwen Code CLI
 npm install -g @qwen-code/qwen-code@latest
-
-# 2. 检查状态
-scripts/qwen-code.js status
-
-# 3. 运行任务
-scripts/qwen-code.js run "创建 Flask API"
-
-# 4. 代码审查
-scripts/qwen-code.js review src/app.ts
 ```
 
----
-
-## 核心功能
-
-### 命令列表
-
-| 命令 | 说明 |
-|------|------|
-| `status` | 检查 Qwen Code 状态和认证 |
-| `run <task>` | 执行编程任务 |
-| `review <file>` | 代码审查和分析 |
-| `headless <task>` | Headless 模式（JSON 输出） |
-| `help` | 查看帮助 |
-
-### OpenClaw 集成示例
+### "Authentication required"
 
 ```bash
-# 后台模式运行任务
-bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '创建 Python Flask API'"
-
-# 指定模型
-bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '分析代码结构' -m qwen3-coder-plus"
-
-# YOLO 模式（自动批准）
-bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '重构这个函数' -y"
+qwen auth login
+# Or set API key
+export DASHSCOPE_API_KEY="sk-xxx"
 ```
 
-### Headless 模式（自动化/CI/CD）
+### Session stuck/waiting for input
 
 ```bash
-# JSON 输出
-qwen -p "分析代码结构" --output-format json
+# Check what Qwen is asking
+process action:log sessionId:XXX
 
-# 管道操作
-git diff | qwen -p "生成 commit message"
+# Send approval
+process action:write sessionId:XXX data:"y"
+```
+
+### Kill stuck session
+
+```bash
+process action:kill sessionId:XXX
 ```
 
 ---
 
-## 边界说明
-
-| 组件 | 行为 | 执行 Shell 命令？ |
-|------|------|------------------|
-| `scripts/qwen-code.js` | 封装 Qwen Code CLI 命令 | 是（通过 qwen 命令） |
-| `references/qwen-cli-commands.md` | 命令参考文档 | 否（纯文本） |
-
-**安全说明**:
-- 本 Skill 不直接执行代码，仅调用 Qwen Code CLI
-- 所有代码生成和修改需用户确认
-- 生产环境建议使用 review 模式
-
----
-
-## 前置条件
-
-- 已安装 Qwen Code CLI (`qwen` 命令)
-- Node.js 20+
-- 完成认证（OAuth 或 API Key）
-
----
-
-## 参考资料
-
-- 官方文档：https://qwenlm.github.io/qwen-code-docs/zh/
-- 命令参考：`references/qwen-cli-commands.md`
-- 示例代码：`assets/examples/`
+*Qwen Code Skill 🦌 - Your AI coding partner powered by Alibaba Cloud*

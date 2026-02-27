@@ -5,10 +5,10 @@
 > 🚀 Alibaba Cloud Qwen Code CLI wrapper for OpenClaw. Execute tasks, review code, and automate workflows with AI-powered assistance.
 
 **Author**: [@UserB1ank](https://github.com/UserB1ank)  
-**Version**: v1.1.0  
+**Version**: v1.2.0  
 **License**: MIT
 
-[📖 中文文档](README.zh-CN.md) | [📝 Changelog](CHANGELOG.md) | [📦 Examples](assets/examples/)
+[📝 Changelog](CHANGELOG.md) | [📦 Examples](assets/examples/)
 
 </div>
 
@@ -136,9 +136,8 @@ find src -name "*.ts" | xargs -I {} qwen -p "Review {}"
 
 ```
 qwen-code-skill/
-├── SKILL.md                      # Skill definition
-├── README.md                     # English documentation
-├── README.zh-CN.md               # Chinese documentation
+├── SKILL.md                      # Skill definition (coding-agent format)
+├── README.md                     # This file
 ├── CHANGELOG.md                  # Version history
 ├── _meta.json                    # Metadata
 ├── assets/
@@ -217,7 +216,15 @@ See [`assets/examples/`](assets/examples/) for complete examples:
 
 See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
-### Latest: v1.1.0 (2026-02-27)
+### Latest: v1.2.0 (2026-02-27)
+
+✨ **English-Only Refactoring**
+- SKILL.md reformatted to coding-agent style
+- All documentation in English
+- Simplified structure for clarity
+- Added troubleshooting section
+
+### v1.1.0 (2026-02-27)
 
 ✨ **EvoMap Style Refactoring**
 - Bilingual README support (EN/中文)

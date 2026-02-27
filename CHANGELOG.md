@@ -7,35 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-02-27
+
+### ✨ Added
+
+- SKILL.md reformatted to match `coding-agent` style
+- Troubleshooting section with common issues
+- Models section documenting available Qwen models
+- Authentication section with OAuth and API Key options
+
+### 🔧 Changed
+
+- **SKILL.md**: Complete rewrite in English with coding-agent format
+- **README.md**: English-only version (removed Chinese links)
+- Simplified documentation structure
+- Added `metadata` section to SKILL.md frontmatter
+
+### 📝 Documentation
+
+- All content now English-only for international audience
+- Reference format: https://github.com/openclaw/skills/blob/main/skills/steipete/coding-agent/SKILL.md
+
+---
+
 ## [1.1.0] - 2026-02-27
 
 ### ✨ Added
 
-- 中英双语 README 文档 (`README.md` / `README.zh-CN.md`)
-- 示例代码目录 (`assets/examples/`)
-  - 基本任务执行示例 (`basic-task.example.sh`)
-  - 代码审查示例 (`code-review.example.sh`)
-  - CI/CD 集成示例 (`ci-cd.example.yml`)
-  - Headless 模式示例 (`headless-mode.example.js`)
-- 完整命令参考文档 (`references/qwen-cli-commands.md`)
-- 项目元数据文件 (`_meta.json`)
+- Bilingual README documentation (EN / 中文)
+- Example code directory (`assets/examples/`)
+  - Basic task execution (`basic-task.example.sh`)
+  - Code review workflow (`code-review.example.sh`)
+  - CI/CD integration (`ci-cd.example.yml`)
+  - Headless mode example (`headless-mode.example.js`)
+- Complete command reference documentation (`references/qwen-cli-commands.md`)
+- Project metadata file (`_meta.json`)
 
 ### 🔧 Changed
 
-- **重构 SKILL.md**: 采用 EvoMap/evolver 风格
-  - 3 句话概述（What it is / Pain it solves / Use in 30 seconds）
-  - For / Not For 清单
-  - 快速开始命令
-  - 边界说明表格
-- 目录结构调整: `skill/` → `scripts/`
-- 文档风格优化：简洁直接、技术导向、代码块展示命令
+- **Refactored SKILL.md**: Adopted EvoMap/evolver style
+  - 3-sentence overview (What it is / Pain it solves / Use in 30 seconds)
+  - For / Not For lists
+  - Quick start commands
+  - Security boundaries table
+- Directory structure: `skill/` → `scripts/`
+- Documentation style: concise, technical, code-first
 
 ### 📝 Documentation
 
-- 新增 README.md（英文精简版）
-- 新增 README.zh-CN.md（中文完整版）
-- 添加中英文切换链接
-- 增加 Emoji 图标提升可读性
+- Added README.md (English concise version)
+- Added README.zh-CN.md (Chinese complete version)
+- Added navigation links between language versions
+- Added Emoji icons for better readability
 
 ### 🏷️ Release
 
@@ -48,24 +71,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ✨ Added
 
-- 初始版本发布
-- 基础命令封装 (`scripts/qwen-code.js`)
-  - `status` - 状态检查
-  - `run` - 任务执行
-  - `review` - 代码审查
-  - `headless` - 无头模式
-  - `help` - 帮助信息
-- OpenClaw 集成支持
-- 基础 Skill 定义文件 (`SKILL.md`)
+- Initial release
+- Basic command wrapper (`scripts/qwen-code.js`)
+  - `status` - Status check
+  - `run` - Task execution
+  - `review` - Code review
+  - `headless` - Headless mode
+  - `help` - Help information
+- OpenClaw integration support
+- Basic Skill definition file (`SKILL.md`)
 
 ### 🔧 Changed
 
-- 项目更名为 `qwen-code-skill`
+- Project renamed to `qwen-code-skill`
 
 ### 📝 Documentation
 
-- 初始 README 文档
-- 基础使用说明
+- Initial README documentation
+- Basic usage instructions
 
 ### 🏷️ Release
 
@@ -78,8 +101,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
-| 1.1.0 | 2026-02-27 | ✨ EvoMap 风格重构，中英双语支持 |
-| 1.0.0 | 2026-02-26 | 🚀 初始版本发布 |
+| 1.2.0 | 2026-02-27 | ✨ English-only, coding-agent format |
+| 1.1.0 | 2026-02-27 | ✨ EvoMap style refactoring, bilingual support |
+| 1.0.0 | 2026-02-26 | 🚀 Initial release |
 
 ---
 
@@ -87,38 +111,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [Unreleased]
 
-- [ ] 添加更多示例代码
-- [ ] 支持 MCP 服务器管理
-- [ ] 支持 Sub-Agent 管理
-- [ ] 添加单元测试
+- [ ] Add more example code for common workflows
+- [ ] Support MCP server management
+- [ ] Support Sub-Agent management
+- [ ] Add unit tests for qwen-code.js script
 
 ---
 
 ## Release Notes
 
+### Version 1.2.0 Highlights
+
+🎯 **Core Improvement**: Reformatted to match OpenClaw's `coding-agent` skill style for consistency.
+
+📚 **Documentation Updates**:
+- English-only content for international audience
+- SKILL.md follows coding-agent template format
+- Added troubleshooting section with common issues
+- Documented available Qwen models
+
+🔧 **Structure Optimization**:
+- Cleaner frontmatter with metadata
+- Better organized sections
+- Consistent with OpenClaw skill conventions
+
 ### Version 1.1.0 Highlights
 
-🎯 **核心改进**: 采用 EvoMap/evolver 项目风格，全面提升文档质量和用户体验。
+✨ **EvoMap Style Refactoring**: Complete documentation overhaul following EvoMap/evolver project style.
 
-📚 **文档升级**:
-- 中英双语支持，满足国际化需求
-- 清晰的 For / Not For 边界说明
-- 丰富的示例代码（Shell / YAML / JavaScript）
-- 完整的命令参考文档
+📚 **Documentation Upgrade**:
+- Bilingual README support (English / Chinese)
+- Clear For / Not For boundaries
+- Rich example code (Shell / YAML / JavaScript)
+- Complete command reference documentation
 
-🔧 **结构优化**:
-- 目录结构更清晰（scripts/ / references/ / assets/）
-- SKILL.md 符合 skill-creator 最佳实践
-- 元数据完善（author / version / description）
+🔧 **Structure Optimization**:
+- Clearer directory structure (scripts/ / references/ / assets/)
+- SKILL.md follows skill-creator best practices
+- Enhanced metadata (author / version / description)
 
 ### Version 1.0.0 Highlights
 
-🚀 **从零到一**: 完成 Qwen Code CLI 到 OpenClaw 的基础集成。
+🚀 **From Zero to One**: Completed basic integration of Qwen Code CLI into OpenClaw.
 
-✅ **核心功能**:
-- 状态检查
-- 任务执行
-- 代码审查
-- Headless 自动化
+✅ **Core Features**:
+- Status check
+- Task execution
+- Code review
+- Headless automation
 
-🔗 **OpenClaw 集成**: 支持后台模式、进程管理、模型指定等功能。
+🔗 **OpenClaw Integration**: Background execution, process management, model selection.
