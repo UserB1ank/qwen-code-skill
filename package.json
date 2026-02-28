@@ -1,14 +1,14 @@
 {
   "name": "qwen-code-skill",
-  "version": "1.0.0",
-  "description": "官方 Qwen Code CLI 集成 - OpenClaw Skill",
-  "main": "qwen-code.js",
+  "version": "1.3.0",
+  "description": "为 OpenClaw 提供调用阿里云 Qwen 大模型的能力 - OpenClaw Skill",
+  "main": "scripts/qwen-code.js",
   "bin": {
-    "qwen-code": "./qwen-code.js"
+    "qwen-code": "./scripts/qwen-code.js"
   },
   "scripts": {
-    "start": "node qwen-code.js",
-    "status": "node qwen-code.js status",
+    "start": "node scripts/qwen-code.js",
+    "status": "node scripts/qwen-code.js status",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -1,5 +1,7 @@
 # Qwen CLI 命令参考
 
+本文档提供 Qwen Code CLI 的完整命令参考，帮助 OpenClaw 用户高效调用 Qwen 大模型。
+
 ## 基本命令
 
 ### 状态检查
@@ -21,6 +23,8 @@ scripts/qwen-code.js --help
 scripts/qwen-code.js -h
 ```
 
+---
+
 ## 任务执行
 
 ### 运行任务
@@ -31,14 +35,18 @@ scripts/qwen-code.js run "重构这个函数" -y
 ```
 
 **选项：**
-- `-m, --model <model>` - 指定模型
-- `-y, --yolo` - YOLO 模式（自动批准所有操作）
-- `-s, --sandbox` - 沙盒模式
-- `--approval-mode <mode>` - 审批模式 (plan|default|auto-edit|yolo)
-- `-o, --output-format <format>` - 输出格式 (text|json|stream-json)
-- `-d, --debug` - 调试模式
-- `--continue` - 恢复当前项目的最近会话
-- `--resume <id>` - 恢复指定会话 ID
+| 选项 | 描述 |
+|------|------|
+| `-m, --model <model>` | 指定模型 |
+| `-y, --yolo` | YOLO 模式（自动批准所有操作） |
+| `-s, --sandbox` | 沙盒模式 |
+| `--approval-mode <mode>` | 审批模式 (plan\|default\|auto-edit\|yolo) |
+| `-o, --output-format <format>` | 输出格式 (text\|json\|stream-json) |
+| `-d, --debug` | 调试模式 |
+| `--continue` | 恢复当前项目的最近会话 |
+| `--resume <id>` | 恢复指定会话 ID |
+
+---
 
 ## 代码审查
 
@@ -48,12 +56,14 @@ scripts/qwen-code.js review src/app.ts
 scripts/qwen-code.js review src/app.ts -m qwen3-coder-plus
 ```
 
-审查内容：
+**审查内容：**
 - 潜在 bug
 - 性能问题
 - 代码风格问题
 - 安全漏洞
 - 改进建议
+
+---
 
 ## Headless 模式
 
@@ -72,6 +82,8 @@ gh pr diff | qwen -p "审查此 PR"
 cat logs/app.log | qwen -p "分析错误原因"
 ```
 
+---
+
 ## Sub-Agent 管理
 
 ```bash
@@ -84,6 +96,8 @@ scripts/qwen-code.js agent list
 # 其他 agent 命令
 scripts/qwen-code.js agent <action> [args]
 ```
+
+---
 
 ## Skills 管理
 
@@ -98,6 +112,8 @@ scripts/qwen-code.js skill create "python-expert"
 scripts/qwen-code.js skill open <skill-name>
 ```
 
+---
+
 ## MCP 服务器管理
 
 ```bash
@@ -111,6 +127,8 @@ scripts/qwen-code.js mcp add google-drive
 scripts/qwen-code.js mcp <command> [args]
 ```
 
+---
+
 ## 扩展管理
 
 ```bash
@@ -121,6 +139,8 @@ scripts/qwen-code.js extensions list
 scripts/qwen-code.js extensions install <git-url>
 ```
 
+---
+
 ## 可用模型
 
 | 模型 | 用途 |
@@ -130,11 +150,17 @@ scripts/qwen-code.js extensions install <git-url>
 | qwen3-coder-next | 轻量代码生成 |
 | qwen3-max | 最强能力 |
 
+---
+
 ## 配置文件
 
-- **配置目录：** `~/.qwen/`
-- **配置文件：** `~/.qwen/settings.json`
-- **会话数据：** `~/.qwen/projects/<cwd>/chats`
+| 项目 | 路径 |
+|------|------|
+| 配置目录 | `~/.qwen/` |
+| 配置文件 | `~/.qwen/settings.json` |
+| 会话数据 | `~/.qwen/projects/<cwd>/chats` |
+
+---
 
 ## 认证方式
 
@@ -154,6 +180,8 @@ qwen
 }
 ```
 
+---
+
 ## 自动化用例
 
 ```bash
@@ -170,6 +198,8 @@ gh pr diff | qwen -p "审查此 PR"
 bash workdir:~/project background:true yieldMs:30000 \
   command:"qwen -p '创建 API 服务'"
 ```
+
+---
 
 ## VS Code 扩展
 
