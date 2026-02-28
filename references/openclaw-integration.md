@@ -1,89 +1,89 @@
-# OpenClaw 集成指南
+# OpenClaw Integration Guide
 
-本文档介绍如何在 OpenClaw 中集成和使用 Qwen Code Skill。
+This document describes how to integrate and use the Qwen Code Skill in OpenClaw.
 
-## 概述
+## Overview
 
-Qwen Code Skill 为 OpenClaw 提供调用阿里云 Qwen 大模型的能力，通过以下组件实现：
+Qwen Code Skill provides Alibaba Cloud Qwen LLM capabilities for OpenClaw, implemented through the following components:
 
 ```
 OpenClaw Agent
     ↓
-调用 bash/exec 工具
+Call bash/exec tool
     ↓
-执行 qwen 命令
+Execute qwen command
     ↓
-阿里云 Qwen 大模型
+Alibaba Cloud Qwen LLM
 ```
 
 ---
 
-## 安装步骤
+## Installation Steps
 
-### 1. 安装 Qwen Code CLI
+### 1. Install Qwen Code CLI
 
 ```bash
 npm install -g @qwen-code/qwen-code@latest
 ```
 
-### 2. 安装 Skill
+### 2. Install Skill
 
 ```bash
-# 使用 ClawHub
+# Using ClawHub
 clawhub install qwen-code
 
-# 或手动克隆
+# Or manual clone
 git clone https://github.com/UserB1ank/qwen-code-skill.git ~/.openclaw/workspace/skills/qwen-code
 ```
 
-### 3. 认证
+### 3. Authentication
 
 ```bash
-# OAuth 方式（推荐）
+# OAuth method (recommended)
 qwen auth login
 
-# 或 API Key 方式
+# Or API Key method
 export DASHSCOPE_API_KEY="sk-xxx"
 ```
 
 ---
 
-## 在 OpenClaw 中使用
+## Using in OpenClaw
 
-### 基本任务执行
+### Basic Task Execution
 
 ```bash
-# 后台执行任务
+# Background task execution
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '创建 Python Flask API'"
+  command:"qwen -p 'Create Python Flask API'"
 ```
 
-### 进程管理
+### Process Management
 
 ```bash
-# 查看会话列表
+# View session list
 process action:list
 
-# 查看日志
+# View logs
 process action:log sessionId:XXX
 
-# 检查完成状态
+# Check completion status
 process action:poll sessionId:XXX
 
-# 发送输入
+# Send input
 process action:write sessionId:XXX data:"y"
 
-# 终止会话
+# Terminate session
 process action:kill sessionId:XXX
 ```
 
 ---
 
-## OpenClaw 配置
+## OpenClaw Configuration
 
-### 工具策略
+### Tool Policy
 
-确保 OpenClaw 配置允许使用 `bash` 和 `process` 工具：
+Ensure OpenClaw configuration allows using `bash` and `process` tools:
 
 ```json5
 {
@@ -93,9 +93,9 @@ process action:kill sessionId:XXX
 }
 ```
 
-### 沙盒配置
+### Sandbox Configuration
 
-如果使用沙盒模式，确保沙盒内也安装了 Qwen Code CLI：
+If using sandbox mode, ensure Qwen Code CLI is also installed in the sandbox:
 
 ```json5
 {
@@ -114,146 +114,146 @@ process action:kill sessionId:XXX
 
 ---
 
-## 使用场景
+## Use Cases
 
-### 1. 代码生成
+### 1. Code Generation
 
 ```bash
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '创建 REST API，包含用户认证和 CRUD 操作'"
+  command:"qwen -p 'Create REST API with user authentication and CRUD operations'"
 ```
 
-### 2. 代码审查
+### 2. Code Review
 
 ```bash
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '审查 src/ 目录的代码质量，找出潜在问题'"
+  command:"qwen -p 'Review code quality in src/ directory, identify potential issues'"
 ```
 
-### 3. 批量处理
+### 3. Batch Processing
 
 ```bash
-# 并行处理多个任务
+# Parallel processing of multiple tasks
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '重构 module_a'"
+  command:"qwen -p 'Refactor module_a'"
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '重构 module_b'"
+  command:"qwen -p 'Refactor module_b'"
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '重构 module_c'"
+  command:"qwen -p 'Refactor module_c'"
 ```
 
-### 4. CI/CD 集成
+### 4. CI/CD Integration
 
 ```bash
-# 在 GitHub Actions 中使用
-qwen -p "分析代码变更" --output-format json
+# Use in GitHub Actions
+qwen -p "Analyze code changes" --output-format json
 ```
 
 ---
 
-## 最佳实践
+## Best Practices
 
-### 1. 工作目录隔离
+### 1. Working Directory Isolation
 
-始终指定 `workdir`，避免 Agent 在不相关的目录中操作：
+Always specify `workdir` to avoid Agent operating in unrelated directories:
 
 ```bash
-# ✅ 正确
+# ✅ Correct
 bash workdir:~/my-project background:true command:"qwen -p '...'"
 
-# ❌ 错误
+# ❌ Wrong
 bash background:true command:"qwen -p '...'"
 ```
 
-### 2. 适当的超时设置
+### 2. Appropriate Timeout Settings
 
-根据任务复杂度设置合适的 `yieldMs`：
+Set appropriate `yieldMs` based on task complexity:
 
 ```bash
-# 小任务：10-30 秒
-bash workdir:~/project background:true yieldMs:10000 command:"qwen -p '修复这个 bug'"
+# Small tasks: 10-30 seconds
+bash workdir:~/project background:true yieldMs:10000 command:"qwen -p 'Fix this bug'"
 
-# 中等任务：30-60 秒
-bash workdir:~/project background:true yieldMs:30000 command:"qwen -p '创建 API 模块'"
+# Medium tasks: 30-60 seconds
+bash workdir:~/project background:true yieldMs:30000 command:"qwen -p 'Create API module'"
 
-# 大任务：60 秒以上
-bash workdir:~/project background:true yieldMs:60000 command:"qwen -p '重构整个项目架构'"
+# Large tasks: 60+ seconds
+bash workdir:~/project background:true yieldMs:60000 command:"qwen -p 'Refactor entire project architecture'"
 ```
 
-### 3. 监控和通知
+### 3. Monitoring and Notifications
 
-使用 OpenClaw 的事件通知功能：
+Use OpenClaw's event notification feature:
 
 ```bash
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '创建 API 服务' && openclaw system event --text '任务完成'"
+  command:"qwen -p 'Create API service' && openclaw system event --text 'Task completed'"
 ```
 
 ---
 
-## 安全注意事项
+## Security Considerations
 
-### 1. YOLO 模式使用限制
+### 1. YOLO Mode Usage Restrictions
 
 ```bash
-# ✅ 安全：在工作目录内
+# ✅ Safe: Within workspace directory
 bash workdir:~/.openclaw/workspace background:true command:"qwen -y -p '...'"
 
-# ❌ 危险：在系统目录
+# ❌ Dangerous: In system directories
 bash workdir:/etc background:true command:"qwen -y -p '...'"
 ```
 
-### 2. 代码审查
+### 2. Code Review
 
-生产环境代码应使用审查模式：
+Production code should use review mode:
 
 ```bash
-# 审查模式（需要确认）
+# Review mode (requires confirmation)
 bash workdir:~/project command:"qwen -p '...'"
 
-# 避免 YOLO 模式
+# Avoid YOLO mode
 # bash workdir:~/project command:"qwen -y -p '...'"
 ```
 
-### 3. 敏感信息
+### 3. Sensitive Information
 
-不要在提示词中包含敏感信息：
+Do not include sensitive information in prompts:
 
 ```bash
-# ❌ 错误
-qwen -p "使用密码 admin123 连接数据库"
+# ❌ Wrong
+qwen -p "Connect to database with password admin123"
 
-# ✅ 正确
-qwen -p "使用环境变量中的数据库配置连接"
+# ✅ Correct
+qwen -p "Connect using database configuration from environment variables"
 ```
 
 ---
 
-## 故障排除
+## Troubleshooting
 
-### 常见问题
+### Common Issues
 
-| 问题 | 解决方案 |
-|------|----------|
+| Issue | Solution |
+|-------|----------|
 | "qwen: command not found" | `npm install -g @qwen-code/qwen-code@latest` |
-| "Authentication required" | `qwen auth login` 或设置 `DASHSCOPE_API_KEY` |
-| 会话卡住 | `process action:log sessionId:XXX` 查看状态 |
-| 权限不足 | 检查 OpenClaw 工具策略配置 |
+| "Authentication required" | `qwen auth login` or set `DASHSCOPE_API_KEY` |
+| Session stuck | `process action:log sessionId:XXX` to check status |
+| Insufficient permissions | Check OpenClaw tool policy configuration |
 
-### 日志调试
+### Log Debugging
 
 ```bash
-# 启用调试模式
-qwen -p "任务" -d
+# Enable debug mode
+qwen -p "task" -d
 
-# 查看 OpenClaw 日志
+# View OpenClaw logs
 openclaw logs --follow
 ```
 
 ---
 
-## 相关文档
+## Related Documentation
 
-- [Qwen CLI 命令参考](qwen-cli-commands.md)
-- [Qwen Code 官方文档](https://qwenlm.github.io/qwen-code-docs/zh/)
-- [OpenClaw 文档](https://openclaw.ai)
+- [Qwen CLI Command Reference](qwen-cli-commands.md)
+- [Qwen Code Official Docs](https://qwenlm.github.io/qwen-code-docs/zh/)
+- [OpenClaw Documentation](https://openclaw.ai)

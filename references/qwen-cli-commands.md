@@ -1,22 +1,22 @@
-# Qwen CLI 命令参考
+# Qwen CLI Command Reference
 
-本文档提供 Qwen Code CLI 的完整命令参考，帮助 OpenClaw 用户高效调用 Qwen 大模型。
+This document provides a complete command reference for Qwen Code CLI, helping OpenClaw users efficiently call the Qwen LLM.
 
-## 基本命令
+## Basic Commands
 
-### 状态检查
+### Status Check
 ```bash
 scripts/qwen-code.js status
 ```
-检查 Node.js 版本、CLI 安装状态、认证状态、已配置模型和最近会话。
+Check Node.js version, CLI installation status, authentication status, configured models, and recent sessions.
 
-### 版本信息
+### Version Information
 ```bash
 scripts/qwen-code.js version
 scripts/qwen-code.js -v
 ```
 
-### 帮助
+### Help
 ```bash
 scripts/qwen-code.js help
 scripts/qwen-code.js --help
@@ -25,153 +25,153 @@ scripts/qwen-code.js -h
 
 ---
 
-## 任务执行
+## Task Execution
 
-### 运行任务
+### Run Task
 ```bash
-scripts/qwen-code.js run "任务描述"
-scripts/qwen-code.js run "创建 Python Flask API" -m qwen3-coder-plus
-scripts/qwen-code.js run "重构这个函数" -y
+scripts/qwen-code.js run "Task description"
+scripts/qwen-code.js run "Create Python Flask API" -m qwen3-coder-plus
+scripts/qwen-code.js run "Refactor this function" -y
 ```
 
-**选项：**
-| 选项 | 描述 |
-|------|------|
-| `-m, --model <model>` | 指定模型 |
-| `-y, --yolo` | YOLO 模式（自动批准所有操作） |
-| `-s, --sandbox` | 沙盒模式 |
-| `--approval-mode <mode>` | 审批模式 (plan\|default\|auto-edit\|yolo) |
-| `-o, --output-format <format>` | 输出格式 (text\|json\|stream-json) |
-| `-d, --debug` | 调试模式 |
-| `--continue` | 恢复当前项目的最近会话 |
-| `--resume <id>` | 恢复指定会话 ID |
+**Options:**
+| Option | Description |
+|--------|-------------|
+| `-m, --model <model>` | Specify model |
+| `-y, --yolo` | YOLO mode (auto-approve all actions) |
+| `-s, --sandbox` | Sandbox mode |
+| `--approval-mode <mode>` | Approval mode (plan\|default\|auto-edit\|yolo) |
+| `-o, --output-format <format>` | Output format (text\|json\|stream-json) |
+| `-d, --debug` | Debug mode |
+| `--continue` | Resume most recent session in current project |
+| `--resume <id>` | Resume specific session ID |
 
 ---
 
-## 代码审查
+## Code Review
 
 ```bash
-scripts/qwen-code.js review <文件路径>
+scripts/qwen-code.js review <file_path>
 scripts/qwen-code.js review src/app.ts
 scripts/qwen-code.js review src/app.ts -m qwen3-coder-plus
 ```
 
-**审查内容：**
-- 潜在 bug
-- 性能问题
-- 代码风格问题
-- 安全漏洞
-- 改进建议
+**Review Content:**
+- Potential bugs
+- Performance issues
+- Code style issues
+- Security vulnerabilities
+- Improvement suggestions
 
 ---
 
-## Headless 模式
+## Headless Mode
 
-用于脚本化、自动化和 CI/CD 集成：
+For scripting, automation, and CI/CD integration:
 
 ```bash
-scripts/qwen-code.js headless "任务描述"
-scripts/qwen-code.js headless "分析代码" -o json
-scripts/qwen-code.js headless "生成 commit message" --continue
+scripts/qwen-code.js headless "Task description"
+scripts/qwen-code.js headless "Analyze code" -o json
+scripts/qwen-code.js headless "Generate commit message" --continue
 ```
 
-**管道操作示例：**
+**Pipeline Examples:**
 ```bash
-git diff | qwen -p "生成 commit message"
-gh pr diff | qwen -p "审查此 PR"
-cat logs/app.log | qwen -p "分析错误原因"
+git diff | qwen -p "Generate commit message"
+gh pr diff | qwen -p "Review this PR"
+cat logs/app.log | qwen -p "Analyze error cause"
 ```
 
 ---
 
-## Sub-Agent 管理
+## Sub-Agent Management
 
 ```bash
-# 创建子代理
-scripts/qwen-code.js agent spawn "代码审查员" 请审查这个模块
+# Spawn sub-agent
+scripts/qwen-code.js agent spawn "Code Reviewer" Please review this module
 
-# 列出子代理
+# List sub-agents
 scripts/qwen-code.js agent list
 
-# 其他 agent 命令
+# Other agent commands
 scripts/qwen-code.js agent <action> [args]
 ```
 
 ---
 
-## Skills 管理
+## Skills Management
 
 ```bash
-# 列出已安装 skills
+# List installed skills
 scripts/qwen-code.js skill list
 
-# 创建新 skill
+# Create new skill
 scripts/qwen-code.js skill create "python-expert"
 
-# 打开 skill 目录
+# Open skill directory
 scripts/qwen-code.js skill open <skill-name>
 ```
 
 ---
 
-## MCP 服务器管理
+## MCP Server Management
 
 ```bash
-# 列出 MCP 服务器
+# List MCP servers
 scripts/qwen-code.js mcp list
 
-# 添加 MCP 服务器
+# Add MCP server
 scripts/qwen-code.js mcp add google-drive
 
-# 其他 MCP 命令
+# Other MCP commands
 scripts/qwen-code.js mcp <command> [args]
 ```
 
 ---
 
-## 扩展管理
+## Extensions Management
 
 ```bash
-# 列出扩展
+# List extensions
 scripts/qwen-code.js extensions list
 
-# 安装扩展
+# Install extension
 scripts/qwen-code.js extensions install <git-url>
 ```
 
 ---
 
-## 可用模型
+## Available Models
 
-| 模型 | 用途 |
-|------|------|
-| qwen3.5-plus | 通用编程 |
-| qwen3-coder-plus | 复杂代码任务 |
-| qwen3-coder-next | 轻量代码生成 |
-| qwen3-max | 最强能力 |
-
----
-
-## 配置文件
-
-| 项目 | 路径 |
-|------|------|
-| 配置目录 | `~/.qwen/` |
-| 配置文件 | `~/.qwen/settings.json` |
-| 会话数据 | `~/.qwen/projects/<cwd>/chats` |
+| Model | Use Case |
+|-------|----------|
+| qwen3.5-plus | General programming |
+| qwen3-coder-plus | Complex code tasks |
+| qwen3-coder-next | Lightweight code generation |
+| qwen3-max | Maximum capability |
 
 ---
 
-## 认证方式
+## Configuration Files
 
-### OAuth 认证（推荐）
+| Item | Path |
+|------|------|
+| Config Directory | `~/.qwen/` |
+| Config File | `~/.qwen/settings.json` |
+| Session Data | `~/.qwen/projects/<cwd>/chats` |
+
+---
+
+## Authentication Methods
+
+### OAuth Authentication (Recommended)
 ```bash
 qwen
-# 按提示完成 OAuth 登录
+# Follow prompts to complete OAuth login
 ```
 
-### API Key 认证
-在 `~/.qwen/settings.json` 中配置：
+### API Key Authentication
+Configure in `~/.qwen/settings.json`:
 ```json
 {
   "env": {
@@ -182,25 +182,25 @@ qwen
 
 ---
 
-## 自动化用例
+## Automation Use Cases
 
 ```bash
-# 代码审查自动化
-git diff | qwen -p "生成 commit message"
+# Code review automation
+git diff | qwen -p "Generate commit message"
 
-# 日志分析
-tail -f app.log | qwen -p "如果发现异常，通知我"
+# Log analysis
+tail -f app.log | qwen -p "Notify me if anomalies are detected"
 
-# PR 审查
-gh pr diff | qwen -p "审查此 PR"
+# PR review
+gh pr diff | qwen -p "Review this PR"
 
-# OpenClaw 后台任务
+# OpenClaw background task
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p '创建 API 服务'"
+  command:"qwen -p 'Create API service'"
 ```
 
 ---
 
-## VS Code 扩展
+## VS Code Extension
 
-- 扩展市场：https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion
+- Extension Marketplace: https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion

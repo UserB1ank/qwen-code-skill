@@ -3,9 +3,9 @@
   "author": "UserB1ank",
   "slug": "qwen-code",
   "displayName": "Qwen Code CLI",
-  "description": "为 OpenClaw 提供调用阿里云 Qwen 大模型的能力。支持任务执行、代码审查、Headless 自动化等场景。",
+  "description": "Provides Alibaba Cloud Qwen LLM capabilities for OpenClaw. Supports task execution, code review, headless automation, and more.",
   "latest": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "publishedAt": 1740787200000,
     "commit": ""
   },
@@ -13,12 +13,17 @@
     {
       "version": "1.2.0",
       "publishedAt": 1740653400000,
-      "changes": ["按 EvoMap/evolver 风格重构项目"]
+      "changes": ["Refactored project to EvoMap/evolver style"]
     },
     {
       "version": "1.3.0",
       "publishedAt": 1740787200000,
-      "changes": ["优化 description，聚焦 OpenClaw 调用 Qwen 能力", "references 全部改为 md 文件格式"]
+      "changes": ["Optimized description, focusing on OpenClaw calling Qwen capabilities", "Converted all references to md file format"]
+    },
+    {
+      "version": "1.4.0",
+      "publishedAt": 1740873600000,
+      "changes": ["Internationalization release: SKILL.md and references in English", "Added Chinese README (README_zh-cn.md)", "Updated metadata and package descriptions to English"]
     }
   ]
 }
