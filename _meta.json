@@ -5,8 +5,8 @@
   "displayName": "Qwen Code CLI",
   "description": "Provides Alibaba Cloud Qwen LLM capabilities for OpenClaw. Supports task execution, code review, headless automation, and more.",
   "latest": {
-    "version": "1.4.0",
-    "publishedAt": 1740787200000,
+    "version": "1.5.0",
+    "publishedAt": 1740873600000,
     "commit": ""
   },
   "history": [
@@ -24,6 +24,11 @@
       "version": "1.4.0",
       "publishedAt": 1740873600000,
       "changes": ["Internationalization release: SKILL.md and references in English", "Added Chinese README (README_zh-cn.md)", "Updated metadata and package descriptions to English"]
+    },
+    {
+      "version": "1.5.0",
+      "publishedAt": 1740873600000,
+      "changes": ["Added trigger keywords (qwen, qwencode, qwen-code, etc.)", "Updated SKILL.md with aliases and keywords metadata", "Added Trigger Keywords section to README.md and README_zh-cn.md"]
     }
   ]
 }

@@ -24,6 +24,27 @@
 
 ### ✨ 功能特性
 
+---
+
+## 🎯 触发关键词
+
+当提到以下关键词时，此技能将被激活：
+
+| 关键词 | 示例 |
+|---------|---------|
+| `qwen` | "用 qwen 审查这段代码" |
+| `qwencode` | "在任务上运行 qwencode" |
+| `qwen-code` | "执行 qwen-code 进行重构" |
+| `qwen code` | "让 qwen code 分析这个" |
+| `aliyun code` | "用 aliyun code 执行这个任务" |
+| `dashscope` | "用 dashscope 模型运行" |
+
+**触发示例：**
+- "用 **qwen** 创建一个 Flask API"
+- "运行 **qwencode** 审查 src/app.ts"
+- "执行 **qwen-code** 进行重构任务"
+
+
 - 🎯 **任务执行** - 使用自然语言运行编程任务
 - 🔍 **代码审查** - 自动化代码分析和建议
 - 🤖 **Headless 模式** - 用于自动化和 CI/CD 的 JSON 输出

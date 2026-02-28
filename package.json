@@ -1,6 +1,6 @@
 {
   "name": "qwen-code-skill",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Provides Alibaba Cloud Qwen LLM capabilities for OpenClaw - OpenClaw Skill",
   "main": "scripts/qwen-code.js",
   "bin": {

@@ -24,6 +24,27 @@
 
 ### ✨ Features
 
+---
+
+## 🎯 Trigger Keywords
+
+This skill activates when you mention:
+
+| Keyword | Example |
+|---------|---------|
+| `qwen` | "Use qwen to review this code" |
+| `qwencode` | "Run qwencode on this task" |
+| `qwen-code` | "Execute qwen-code for refactoring" |
+| `qwen code` | "Let qwen code analyze this" |
+| `aliyun code` | "Use aliyun code for this task" |
+| `dashscope` | "Run with dashscope model" |
+
+**Example triggers:**
+- "Use **qwen** to create a Flask API"
+- "Run **qwencode** to review src/app.ts"
+- "Execute **qwen-code** for this refactoring task"
+
+
 - 🎯 **Task Execution** - Run programming tasks with natural language
 - 🔍 **Code Review** - Automated code analysis and suggestions
 - 🤖 **Headless Mode** - JSON output for automation and CI/CD

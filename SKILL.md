@@ -1,6 +1,8 @@
 ---
 name: qwen-code
 description: Provides Alibaba Cloud Qwen LLM capabilities for OpenClaw. Supports task execution, code review, automation scripts, and more.
+aliases: ["qwen", "qwencode", "qwen-code", "qwen code", "aliyun code", "dashscope"]
+keywords: ["qwen", "qwencode", "qwen-code", "alibaba", "aliyun", "dashscope", "coding", "code review", "task execution"]
 metadata: {"clawdbot":{"emoji":"🦌","requires":{"anyBins":["qwen"]}}}
 author: UserB1ank
 ---
@@ -8,6 +10,27 @@ author: UserB1ank
 # Qwen Code Skill
 
 This Skill provides Alibaba Cloud Qwen LLM capabilities for OpenClaw, wrapping Qwen Code CLI to enable programming task execution, code review, automation scripts, and more.
+
+## 🎯 Trigger Keywords
+
+This skill will be activated when you mention:
+
+| Keyword | Example |
+|---------|---------|
+| `qwen` | "Use qwen to review this code" |
+| `qwencode` | "Run qwencode on this task" |
+| `qwen-code` | "Execute qwen-code for refactoring" |
+| `qwen code` | "Let qwen code analyze this" |
+| `aliyun code` | "Use aliyun code for this task" |
+| `dashscope` | "Run with dashscope model" |
+
+**Example triggers:**
+- "Use **qwen** to create a Flask API"
+- "Run **qwencode** to review src/app.ts"
+- "Execute **qwen-code** for this refactoring task"
+- "Let **qwen code** analyze the performance issues"
+
+---
 
 ## Quick Start
 
@@ -55,7 +78,7 @@ bash workdir:~/project background:true yieldMs:30000 \
 bash workdir:~/project background:true yieldMs:30000 \
   command:"qwen -p 'Analyze code structure' -m qwen3-coder-plus"
 
-# YOLO Mode (auto-approve)
+# YOLO mode (auto-approve)
 bash workdir:~/project background:true yieldMs:30000 \
   command:"qwen -p 'Refactor this function' -y"
 ```
@@ -64,7 +87,7 @@ bash workdir:~/project background:true yieldMs:30000 \
 
 ```bash
 bash workdir:~/project background:true yieldMs:30000 \
-  command:"qwen -p 'Review code quality of src/app.ts'"
+  command:"qwen -p 'Review code quality in src/app.ts'"
 ```
 
 ### 3. Headless Mode (Automation/CI/CD)
@@ -90,7 +113,7 @@ gh pr diff | qwen -p "Review this PR"
 | `headless <task>` | Headless mode (JSON output) | `scripts/qwen-code.js headless "Analyze" -o json` |
 | `help` | Show help | `scripts/qwen-code.js help` |
 
-For detailed commands, see: [references/qwen-cli-commands.md](references/qwen-cli-commands.md)
+Detailed commands: [references/qwen-cli-commands.md](references/qwen-cli-commands.md)
 
 ---
 
@@ -99,9 +122,9 @@ For detailed commands, see: [references/qwen-cli-commands.md](references/qwen-cl
 | Model | Use Case |
 |-------|----------|
 | qwen3.5-plus | General programming (default) |
-| qwen3-coder-plus | Complex code tasks |
+| qwen3-coder-plus | Complex coding tasks |
 | qwen3-coder-next | Lightweight code generation |
-| qwen3-max | Maximum capability |
+| qwen3-max | Most capable |
 
 **Specify model:**
 ```bash
@@ -117,28 +140,28 @@ bash workdir:~/project background:true yieldMs:30000 \
 # View logs
 process action:log sessionId:XXX
 
-# Check completion status
+# Check completion
 process action:poll sessionId:XXX
 
 # Send input (if Qwen asks)
 process action:write sessionId:XXX data:"y"
 
-# Terminate session
+# Kill session
 process action:kill sessionId:XXX
 ```
 
 ---
 
-## Usage Guidelines
+## Usage Rules
 
-1. **Respect Tool Choice** — Use Qwen when user requests it, don't implement your own
-2. **Be Patient** — Don't terminate sessions just because they seem "slow"
-3. **Monitor with process:log** — Check progress without interfering
-4. **YOLO Mode for Development** — `--yolo` auto-approves (use in workspace only)
-5. **Use Review Mode for Production Code** — Ensure safety
-6. **Parallel Execution OK** — Run multiple Qwen processes for batch tasks
-7. **Don't Run in ~/clawd/** — Use target project directory or /tmp
-8. **Workspace Safety** — YOLO mode is only safe in `agents.defaults.workspace`
+1. **Respect tool choice** — if user asks for Qwen, use Qwen
+2. **Be patient** — don't kill sessions for being "slow"
+3. **Monitor with process:log** — check progress without interfering
+4. **YOLO mode for development** — `--yolo` auto-approves (workspace only)
+5. **Review mode for production** — ensure safety
+6. **Parallel is OK** — run multiple Qwen processes for batch tasks
+7. **Never run in ~/clawd/** — use target project dir or /tmp
+8. **Workspace safety** — YOLO mode only safe in `agents.defaults.workspace`
 
 ---
 
@@ -153,9 +176,9 @@ process action:kill sessionId:XXX
 
 ❌ **Not Recommended:**
 - Environments without Qwen Code CLI installed
-- Scenarios requiring GUI interaction
+- GUI interaction requirements
 - Non-Alibaba Cloud LLM users
-- Offline environments (requires network connection)
+- Offline environments (requires network)
 
 ---
 
@@ -164,12 +187,12 @@ process action:kill sessionId:XXX
 | Component | Behavior | Executes Shell Commands? |
 |-----------|----------|-------------------------|
 | `scripts/qwen-code.js` | Wraps Qwen Code CLI commands | Yes (via `qwen` command) |
-| `references/*.md` | Command reference documentation | No (plain text) |
+| `references/*.md` | Command reference docs | No (plain text) |
 | `assets/examples/` | Example code files | No (static files) |
 
-**Security Notes:**
-- This Skill does not execute code directly, only calls Qwen Code CLI
-- All code generation and modifications require user confirmation
+**Security considerations:**
+- This Skill only calls Qwen Code CLI, doesn't execute code directly
+- All code generation/modifications require user confirmation
 - Use review mode in production environments
 - Disable YOLO mode for sensitive projects
 
@@ -194,7 +217,7 @@ See [`assets/examples/`](assets/examples/) for complete examples:
 - [📝 Command Reference](references/qwen-cli-commands.md)
 - [📝 OpenClaw Integration Guide](references/openclaw-integration.md)
 - [📦 Example Code](assets/examples/)
-- [🦌 OpenClaw Documentation](https://openclaw.ai)
+- [🦌 OpenClaw Docs](https://openclaw.ai)
 
 ---
 
@@ -220,7 +243,7 @@ process action:log sessionId:XXX
 process action:write sessionId:XXX data:"y"
 ```
 
-### Terminate stuck session
+### Kill stuck session
 ```bash
 process action:kill sessionId:XXX
 ```
